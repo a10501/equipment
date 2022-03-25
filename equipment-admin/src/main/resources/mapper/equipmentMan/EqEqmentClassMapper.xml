@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.equipment.equipmentMan.mapper.EqEqmentClassMapper">
+    
+    <resultMap type="EqEqmentClass" id="EqEqmentClassResult">
+        <result property="eqmentId"    column="eqment_id"    />
+        <result property="classId"    column="class_id"    />
+    </resultMap>
+
+    <sql id="selectEqEqmentClassVo">
+        select eqment_id, class_id from eq_eqment_class
+    </sql>
+
+    <select id="selectEqEqmentClassList" parameterType="EqEqmentClass" resultMap="EqEqmentClassResult">
+        <include refid="selectEqEqmentClassVo"/>
+        <where>  
+        </where>
+    </select>
+    
+    <select id="selectEqEqmentClassByEqmentId" parameterType="Long" resultMap="EqEqmentClassResult">
+        <include refid="selectEqEqmentClassVo"/>
+        where eqment_id = #{eqmentId}
+    </select>
+        
+    <insert id="insertEqEqmentClass" parameterType="EqEqmentClass">
+        insert into eq_eqment_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="eqmentId != null">eqment_id,</if>
+            <if test="classId != null">class_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="eqmentId != null">#{eqmentId},</if>
+            <if test="classId != null">#{classId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEqEqmentClass" parameterType="EqEqmentClass">
+        update eq_eqment_class
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="classId != null">class_id = #{classId},</if>
+        </trim>
+        where eqment_id = #{eqmentId}
+    </update>
+
+    <delete id="deleteEqEqmentClassByEqmentId" parameterType="Long">
+        delete from eq_eqment_class where eqment_id = #{eqmentId}
+    </delete>
+
+    <delete id="deleteEqEqmentClassByEqmentIds" parameterType="String">
+        delete from eq_eqment_class where eqment_id in 
+        <foreach item="eqmentId" collection="array" open="(" separator="," close=")">
+            #{eqmentId}
+        </foreach>
+    </delete>
+</mapper>
