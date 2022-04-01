@@ -2,6 +2,8 @@ package com.equipment.equipmentMan.service.impl;
 
 import java.util.List;
 import com.equipment.common.utils.DateUtils;
+import com.equipment.equipmentMan.domain.EqEqment;
+import com.equipment.equipmentMan.service.IEqEqmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.equipment.equipmentMan.mapper.EqClassroomMapper;
@@ -12,13 +14,16 @@ import com.equipment.equipmentMan.service.IEqClassroomService;
  * 教室信息Service业务层处理
  * 
  * @author cdy
- * @date 2022-03-20
+ * @date 2022-03-27
  */
 @Service
 public class EqClassroomServiceImpl implements IEqClassroomService 
 {
     @Autowired
     private EqClassroomMapper eqClassroomMapper;
+
+    @Autowired
+    private IEqEqmentService eqEqmentService;
 
     /**
      * 查询教室信息
@@ -79,6 +84,16 @@ public class EqClassroomServiceImpl implements IEqClassroomService
     @Override
     public int deleteEqClassroomByIds(Long[] ids)
     {
+        EqEqment eqEqment = new EqEqment();
+        for (int i = 0; i < ids.length; i++) {
+            if(eqClassroomMapper.selectEqClassroomById(ids[i]).getStatus().equals("1"))
+                return -1;
+            eqEqment.setClassroomId(ids[i]);
+            if(eqEqmentService.selectEqEqmentList(eqEqment).size() > 0){
+                return -2;
+            }
+        }
+
         return eqClassroomMapper.deleteEqClassroomByIds(ids);
     }
 

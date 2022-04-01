@@ -2,6 +2,9 @@ package com.equipment.equipmentMan.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.equipment.common.core.domain.entity.SysUser;
+import com.equipment.common.core.domain.model.LoginUser;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,6 +80,9 @@ public class EqEqmentController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody EqEqment eqEqment)
     {
+        LoginUser loginUser = getLoginUser();
+        SysUser user = loginUser.getUser();
+        eqEqment.setResponsiblePeo(user.getUserName());
         return toAjax(eqEqmentService.insertEqEqment(eqEqment));
     }
 

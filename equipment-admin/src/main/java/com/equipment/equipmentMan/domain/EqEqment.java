@@ -1,7 +1,8 @@
 package com.equipment.equipmentMan.domain;
 
-import java.util.List;
 import java.util.Date;
+
+import com.equipment.common.annotation.Excels;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -37,9 +38,62 @@ public class EqEqment extends BaseEntity
     @Excel(name = "设备类型")
     private String eqmentType;
 
+    public String getResponsiblePeo() {
+        return responsiblePeo;
+    }
+
+    public void setResponsiblePeo(String responsible_peo) {
+        this.responsiblePeo = responsible_peo;
+    }
+
+    /** 负责人 */
+    @Excel(name = "负责人")
+    private String responsiblePeo;
+
     /** 教室id */
     @Excel(name = "教室id")
     private Long classroomId;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    /** 教室名称 */
+    @Excel(name = "教室名称")
+    private String className;
+
+//    public EqClassroom getClassroom() {
+//        return classroom;
+//    }
+//
+//    public void setClassroom(EqClassroom classroom) {
+//        this.classroom = classroom;
+//    }
+
+    public EqClassroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(EqClassroom classroom) {
+        this.classroom = classroom;
+    }
+
+    /**
+     * 教室对象
+     */
+//    @Excels({
+//            @Excel(name = "教室名称", targetAttr = "className", type = Excel.Type.EXPORT)
+//    })
+//    private EqClassroom classroom;
+    @Excels({
+            @Excel(name = "教室名称", targetAttr = "className", type = Excel.Type.EXPORT),
+            @Excel(name = "教室状态", targetAttr = "status", type = Excel.Type.EXPORT)
+    })
+    private EqClassroom classroom;
 
     /** 出厂日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -50,9 +104,6 @@ public class EqEqment extends BaseEntity
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "购买日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date buyDate;
-
-    /** 教室信息信息 */
-    private List<EqClass> eqClassList;
 
     public void setId(Long id) 
     {
@@ -127,16 +178,6 @@ public class EqEqment extends BaseEntity
         return buyDate;
     }
 
-    public List<EqClass> getEqClassList()
-    {
-        return eqClassList;
-    }
-
-    public void setEqClassList(List<EqClass> eqClassList)
-    {
-        this.eqClassList = eqClassList;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -149,7 +190,8 @@ public class EqEqment extends BaseEntity
             .append("proDate", getProDate())
             .append("buyDate", getBuyDate())
             .append("remark", getRemark())
-            .append("eqClassList", getEqClassList())
+            .append("classroom", getClassroom())
+            .append("responsiblePeo",getResponsiblePeo())
             .toString();
     }
 }

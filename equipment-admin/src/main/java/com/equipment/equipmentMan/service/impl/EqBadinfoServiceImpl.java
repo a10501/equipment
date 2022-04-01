@@ -3,10 +3,6 @@ package com.equipment.equipmentMan.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import com.equipment.common.utils.StringUtils;
-import org.springframework.transaction.annotation.Transactional;
-import com.equipment.equipmentMan.domain.EqClass;
 import com.equipment.equipmentMan.mapper.EqBadinfoMapper;
 import com.equipment.equipmentMan.domain.EqBadinfo;
 import com.equipment.equipmentMan.service.IEqBadinfoService;
@@ -53,13 +49,10 @@ public class EqBadinfoServiceImpl implements IEqBadinfoService
      * @param eqBadinfo 设备报修信息
      * @return 结果
      */
-    @Transactional
     @Override
     public int insertEqBadinfo(EqBadinfo eqBadinfo)
     {
-        int rows = eqBadinfoMapper.insertEqBadinfo(eqBadinfo);
-        insertEqClass(eqBadinfo);
-        return rows;
+        return eqBadinfoMapper.insertEqBadinfo(eqBadinfo);
     }
 
     /**
@@ -68,12 +61,9 @@ public class EqBadinfoServiceImpl implements IEqBadinfoService
      * @param eqBadinfo 设备报修信息
      * @return 结果
      */
-    @Transactional
     @Override
     public int updateEqBadinfo(EqBadinfo eqBadinfo)
     {
-        eqBadinfoMapper.deleteEqClassById(eqBadinfo.getId());
-        insertEqClass(eqBadinfo);
         return eqBadinfoMapper.updateEqBadinfo(eqBadinfo);
     }
 
@@ -83,11 +73,9 @@ public class EqBadinfoServiceImpl implements IEqBadinfoService
      * @param ids 需要删除的设备报修信息主键
      * @return 结果
      */
-    @Transactional
     @Override
     public int deleteEqBadinfoByIds(Long[] ids)
     {
-        eqBadinfoMapper.deleteEqClassByIds(ids);
         return eqBadinfoMapper.deleteEqBadinfoByIds(ids);
     }
 
@@ -97,35 +85,9 @@ public class EqBadinfoServiceImpl implements IEqBadinfoService
      * @param id 设备报修信息主键
      * @return 结果
      */
-    @Transactional
     @Override
     public int deleteEqBadinfoById(Long id)
     {
-        eqBadinfoMapper.deleteEqClassById(id);
         return eqBadinfoMapper.deleteEqBadinfoById(id);
-    }
-
-    /**
-     * 新增教室信息信息
-     * 
-     * @param eqBadinfo 设备报修信息对象
-     */
-    public void insertEqClass(EqBadinfo eqBadinfo)
-    {
-        List<EqClass> eqClassList = eqBadinfo.getEqClassList();
-        Long id = eqBadinfo.getId();
-        if (StringUtils.isNotNull(eqClassList))
-        {
-            List<EqClass> list = new ArrayList<EqClass>();
-            for (EqClass eqClass : eqClassList)
-            {
-                eqClass.setId(id);
-                list.add(eqClass);
-            }
-            if (list.size() > 0)
-            {
-                eqBadinfoMapper.batchEqClass(list);
-            }
-        }
     }
 }

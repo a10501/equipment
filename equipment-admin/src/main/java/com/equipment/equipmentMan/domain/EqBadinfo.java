@@ -1,7 +1,7 @@
 package com.equipment.equipmentMan.domain;
 
-import java.util.List;
 import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -45,9 +45,6 @@ public class EqBadinfo extends BaseEntity
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "申报日期", width = 30, dateFormat = "yyyy-MM-dd")
     private Date badinfoDate;
-
-    /** 教室信息信息 */
-    private List<EqClass> eqClassList;
 
     public void setId(Long id) 
     {
@@ -113,16 +110,6 @@ public class EqBadinfo extends BaseEntity
         return badinfoDate;
     }
 
-    public List<EqClass> getEqClassList()
-    {
-        return eqClassList;
-    }
-
-    public void setEqClassList(List<EqClass> eqClassList)
-    {
-        this.eqClassList = eqClassList;
-    }
-
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -134,7 +121,6 @@ public class EqBadinfo extends BaseEntity
             .append("classroomId", getClassroomId())
             .append("badinfoDate", getBadinfoDate())
             .append("remark", getRemark())
-            .append("eqClassList", getEqClassList())
             .toString();
     }
 }

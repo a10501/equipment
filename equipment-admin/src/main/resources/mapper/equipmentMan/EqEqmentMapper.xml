@@ -14,28 +14,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="proDate"    column="pro_date"    />
         <result property="buyDate"    column="buy_date"    />
         <result property="remark"    column="remark"    />
+        <result property="responsiblePeo"    column="responsible_peo"    />
+        <result property="className"    column="class_name" />
     </resultMap>
 
-    <resultMap id="EqEqmentEqClassResult" type="EqEqment" extends="EqEqmentResult">
-        <collection property="eqClassList" notNullColumn="sub_id" javaType="java.util.List" resultMap="EqClassResult" />
+    <resultMap type="EqClassroom" id="EqClassroomResult">
+        <result property="id"    column="id"    />
+        <result property="className"    column="class_name"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
     </resultMap>
 
-    <resultMap type="EqClass" id="EqClassResult">
-        <result property="id"    column="sub_id"    />
-        <result property="parentId"    column="sub_parent_id"    />
-        <result property="className"    column="sub_class_name"    />
-        <result property="createBy"    column="sub_create_by"    />
-        <result property="createTime"    column="sub_create_time"    />
-        <result property="updateBy"    column="sub_update_by"    />
-        <result property="updateTime"    column="sub_update_time"    />
-    </resultMap>
-
-    <sql id="selectEqEqmentVo">
-        select id, eqment_name, eqment_number, eqment_status, eqment_type, classroom_id, pro_date, buy_date, remark from eq_eqment
-    </sql>
+<!--    <sql id="selectEqEqmentVo">-->
+<!--        select e.id as eqment_id,-->
+<!--               e.eqment_name,-->
+<!--               e.eqment_number,-->
+<!--               e.eqment_status,-->
+<!--               e.eqment_type,-->
+<!--               e.classroom_id,-->
+<!--               e.pro_date,-->
+<!--               e.buy_date,-->
+<!--               e.remark,-->
+<!--               c.id as class_id,-->
+<!--               c.class_name,-->
+<!--               c.create_by,-->
+<!--               c.create_time,-->
+<!--               c.update_by,-->
+<!--               c.update_time-->
+<!--        from eq_eqment e-->
+<!--            left join eq_classroom c on  e.classroom_id = c.id                                                                                                                  left join                                                                                                                    left join                                                                                                                left join-->
+<!--    </sql>-->
 
     <select id="selectEqEqmentList" parameterType="EqEqment" resultMap="EqEqmentResult">
-        <include refid="selectEqEqmentVo"/>
+        select e.id, e.eqment_name, e.eqment_number, e.eqment_status, e.eqment_type, e.classroom_id,e.pro_date, e.buy_date, e.remark, c.class_name as class_name,e.responsible_peo
+        from eq_eqment e
+        left join eq_classroom c on  e.classroom_id = c.id
         <where>  
             <if test="eqmentName != null  and eqmentName != ''"> and eqment_name like concat('%', #{eqmentName}, '%')</if>
             <if test="eqmentStatus != null  and eqmentStatus != ''"> and eqment_status = #{eqmentStatus}</if>
@@ -43,12 +59,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectEqEqmentById" parameterType="Long" resultMap="EqEqmentEqClassResult">
-        select a.id, a.eqment_name, a.eqment_number, a.eqment_status, a.eqment_type, a.classroom_id, a.pro_date, a.buy_date, a.remark,
- b.id as sub_id, b.parent_id as sub_parent_id, b.class_name as sub_class_name, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time
-        from eq_eqment a
-        left join eq_class b on b.id = a.id
-        where a.id = #{id}
+    <select id="selectEqEqmentById" parameterType="Long" resultMap="EqEqmentResult">
+        select e.id, e.eqment_name, e.eqment_number, e.eqment_status, e.eqment_type, e.classroom_id,e.pro_date, e.buy_date, e.remark, c.class_name,e.responsible_peo
+        from eq_eqment e
+        left join eq_classroom c on  e.classroom_id = c.id
+        where e.id = #{id}
     </select>
         
     <insert id="insertEqEqment" parameterType="EqEqment" useGeneratedKeys="true" keyProperty="id">
@@ -59,6 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="eqmentStatus != null">eqment_status,</if>
             <if test="eqmentType != null">eqment_type,</if>
             <if test="classroomId != null">classroom_id,</if>
+            <if test="responsiblePeo != null">responsible_peo,</if>
             <if test="proDate != null">pro_date,</if>
             <if test="buyDate != null">buy_date,</if>
             <if test="remark != null">remark,</if>
@@ -69,6 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="eqmentStatus != null">#{eqmentStatus},</if>
             <if test="eqmentType != null">#{eqmentType},</if>
             <if test="classroomId != null">#{classroomId},</if>
+            <if test="responsiblePeo != null">{#responsible_peo},</if>
             <if test="proDate != null">#{proDate},</if>
             <if test="buyDate != null">#{buyDate},</if>
             <if test="remark != null">#{remark},</if>
@@ -83,6 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="eqmentStatus != null">eqment_status = #{eqmentStatus},</if>
             <if test="eqmentType != null">eqment_type = #{eqmentType},</if>
             <if test="classroomId != null">classroom_id = #{classroomId},</if>
+            <if test="responsiblePeo != null">responsible_peo = #{#esponsible_peo},</if>
             <if test="proDate != null">pro_date = #{proDate},</if>
             <if test="buyDate != null">buy_date = #{buyDate},</if>
             <if test="remark != null">remark = #{remark},</if>
@@ -100,22 +118,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
-    <delete id="deleteEqClassByIds" parameterType="String">
-        delete from eq_class where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
-
-    <delete id="deleteEqClassById" parameterType="Long">
-        delete from eq_class where id = #{id}
-    </delete>
-
-    <insert id="batchEqClass">
-        insert into eq_class( id, parent_id, class_name, create_by, create_time, update_by, update_time) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.parentId}, #{item.className}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime})
-        </foreach>
-    </insert>
 </mapper>

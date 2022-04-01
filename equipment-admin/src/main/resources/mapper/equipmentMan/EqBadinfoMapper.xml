@@ -15,20 +15,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
     </resultMap>
 
-    <resultMap id="EqBadinfoEqClassResult" type="EqBadinfo" extends="EqBadinfoResult">
-        <collection property="eqClassList" notNullColumn="sub_id" javaType="java.util.List" resultMap="EqClassResult" />
-    </resultMap>
-
-    <resultMap type="EqClass" id="EqClassResult">
-        <result property="id"    column="sub_id"    />
-        <result property="parentId"    column="sub_parent_id"    />
-        <result property="className"    column="sub_class_name"    />
-        <result property="createBy"    column="sub_create_by"    />
-        <result property="createTime"    column="sub_create_time"    />
-        <result property="updateBy"    column="sub_update_by"    />
-        <result property="updateTime"    column="sub_update_time"    />
-    </resultMap>
-
     <sql id="selectEqBadinfoVo">
         select id, badinfo_name, badinfo_stat, badinfo_peo, badinfo_status, classroom_id, badinfo_date, remark from eq_badinfo
     </sql>
@@ -43,12 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     
-    <select id="selectEqBadinfoById" parameterType="Long" resultMap="EqBadinfoEqClassResult">
-        select a.id, a.badinfo_name, a.badinfo_stat, a.badinfo_peo, a.badinfo_status, a.classroom_id, a.badinfo_date, a.remark,
- b.id as sub_id, b.parent_id as sub_parent_id, b.class_name as sub_class_name, b.create_by as sub_create_by, b.create_time as sub_create_time, b.update_by as sub_update_by, b.update_time as sub_update_time
-        from eq_badinfo a
-        left join eq_class b on b.id = a.id
-        where a.id = #{id}
+    <select id="selectEqBadinfoById" parameterType="Long" resultMap="EqBadinfoResult">
+        <include refid="selectEqBadinfoVo"/>
+        where id = #{id}
     </select>
         
     <insert id="insertEqBadinfo" parameterType="EqBadinfo" useGeneratedKeys="true" keyProperty="id">
@@ -97,22 +80,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
-    <delete id="deleteEqClassByIds" parameterType="String">
-        delete from eq_class where id in 
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
-
-    <delete id="deleteEqClassById" parameterType="Long">
-        delete from eq_class where id = #{id}
-    </delete>
-
-    <insert id="batchEqClass">
-        insert into eq_class( id, parent_id, class_name, create_by, create_time, update_by, update_time) values
-		<foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.parentId}, #{item.className}, #{item.createBy}, #{item.createTime}, #{item.updateBy}, #{item.updateTime})
-        </foreach>
-    </insert>
 </mapper>

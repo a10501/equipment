@@ -28,7 +28,7 @@ import com.equipment.common.core.page.TableDataInfo;
  * @date 2022-03-19
  */
 @RestController
-@RequestMapping("/equipmentMan/class")
+@RequestMapping("/equipmentMan/classeqment")
 public class EqEqmentClassController extends BaseController
 {
     @Autowired
@@ -37,7 +37,7 @@ public class EqEqmentClassController extends BaseController
     /**
      * 查询设备和教室关联列表
      */
-    @PreAuthorize("@ss.hasPermi('equipmentMan:class:list')")
+    @PreAuthorize("@ss.hasPermi('equipmentMan:classeqment:list')")
     @GetMapping("/list")
     public TableDataInfo list(EqEqmentClass eqEqmentClass)
     {
@@ -49,7 +49,7 @@ public class EqEqmentClassController extends BaseController
     /**
      * 导出设备和教室关联列表
      */
-    @PreAuthorize("@ss.hasPermi('equipmentMan:class:export')")
+    @PreAuthorize("@ss.hasPermi('equipmentMan:classeqment:export')")
     @Log(title = "设备和教室关联", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, EqEqmentClass eqEqmentClass)
@@ -62,7 +62,7 @@ public class EqEqmentClassController extends BaseController
     /**
      * 获取设备和教室关联详细信息
      */
-    @PreAuthorize("@ss.hasPermi('equipmentMan:class:query')")
+    @PreAuthorize("@ss.hasPermi('equipmentMan:classeqment:query')")
     @GetMapping(value = "/{eqmentId}")
     public AjaxResult getInfo(@PathVariable("eqmentId") Long eqmentId)
     {
@@ -72,7 +72,7 @@ public class EqEqmentClassController extends BaseController
     /**
      * 新增设备和教室关联
      */
-    @PreAuthorize("@ss.hasPermi('equipmentMan:class:add')")
+    @PreAuthorize("@ss.hasPermi('equipmentMan:classeqment:add')")
     @Log(title = "设备和教室关联", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody EqEqmentClass eqEqmentClass)
@@ -83,7 +83,7 @@ public class EqEqmentClassController extends BaseController
     /**
      * 修改设备和教室关联
      */
-    @PreAuthorize("@ss.hasPermi('equipmentMan:class:edit')")
+    @PreAuthorize("@ss.hasPermi('equipmentMan:classeqment:edit')")
     @Log(title = "设备和教室关联", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody EqEqmentClass eqEqmentClass)
@@ -94,7 +94,7 @@ public class EqEqmentClassController extends BaseController
     /**
      * 删除设备和教室关联
      */
-    @PreAuthorize("@ss.hasPermi('equipmentMan:class:remove')")
+    @PreAuthorize("@ss.hasPermi('equipmentMan:classeqment:remove')")
     @Log(title = "设备和教室关联", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{eqmentIds}")
     public AjaxResult remove(@PathVariable Long[] eqmentIds)

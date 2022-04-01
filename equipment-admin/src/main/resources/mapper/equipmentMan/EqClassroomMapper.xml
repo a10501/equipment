@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="EqClassroom" id="EqClassroomResult">
         <result property="id"    column="id"    />
         <result property="className"    column="class_name"    />
+        <result property="status"    column="status"    />
         <result property="createBy"    column="create_by"    />
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
@@ -14,13 +15,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectEqClassroomVo">
-        select id, class_name, create_by, create_time, update_by, update_time from eq_class
+        select id, class_name, status, create_by, create_time, update_by, update_time from eq_classroom
     </sql>
 
     <select id="selectEqClassroomList" parameterType="EqClassroom" resultMap="EqClassroomResult">
         <include refid="selectEqClassroomVo"/>
         <where>  
             <if test="className != null  and className != ''"> and class_name like concat('%', #{className}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>
     
@@ -30,9 +32,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
         
     <insert id="insertEqClassroom" parameterType="EqClassroom" useGeneratedKeys="true" keyProperty="id">
-        insert into eq_class
+        insert into eq_classroom
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="className != null">class_name,</if>
+            <if test="status != null">status,</if>
             <if test="createBy != null">create_by,</if>
             <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
@@ -40,6 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="className != null">#{className},</if>
+            <if test="status != null">#{status},</if>
             <if test="createBy != null">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
@@ -48,9 +52,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <update id="updateEqClassroom" parameterType="EqClassroom">
-        update eq_class
+        update eq_classroom
         <trim prefix="SET" suffixOverrides=",">
             <if test="className != null">class_name = #{className},</if>
+            <if test="status != null">status = #{status},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
@@ -60,11 +65,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
     <delete id="deleteEqClassroomById" parameterType="Long">
-        delete from eq_class where id = #{id}
+        delete from eq_classroom where id = #{id}
     </delete>
 
     <delete id="deleteEqClassroomByIds" parameterType="String">
-        delete from eq_class where id in 
+        delete from eq_classroom where id in 
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>

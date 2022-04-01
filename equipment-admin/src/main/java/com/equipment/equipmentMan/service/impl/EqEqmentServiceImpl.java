@@ -1,12 +1,11 @@
 package com.equipment.equipmentMan.service.impl;
 
 import java.util.List;
+
+import com.equipment.common.core.domain.entity.SysUser;
+import com.equipment.common.core.domain.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import com.equipment.common.utils.StringUtils;
-import org.springframework.transaction.annotation.Transactional;
-import com.equipment.equipmentMan.domain.EqClass;
 import com.equipment.equipmentMan.mapper.EqEqmentMapper;
 import com.equipment.equipmentMan.domain.EqEqment;
 import com.equipment.equipmentMan.service.IEqEqmentService;
@@ -53,13 +52,10 @@ public class EqEqmentServiceImpl implements IEqEqmentService
      * @param eqEqment 设备信息
      * @return 结果
      */
-    @Transactional
     @Override
     public int insertEqEqment(EqEqment eqEqment)
     {
-        int rows = eqEqmentMapper.insertEqEqment(eqEqment);
-        insertEqClass(eqEqment);
-        return rows;
+        return eqEqmentMapper.insertEqEqment(eqEqment);
     }
 
     /**
@@ -68,12 +64,9 @@ public class EqEqmentServiceImpl implements IEqEqmentService
      * @param eqEqment 设备信息
      * @return 结果
      */
-    @Transactional
     @Override
     public int updateEqEqment(EqEqment eqEqment)
     {
-        eqEqmentMapper.deleteEqClassById(eqEqment.getId());
-        insertEqClass(eqEqment);
         return eqEqmentMapper.updateEqEqment(eqEqment);
     }
 
@@ -83,11 +76,9 @@ public class EqEqmentServiceImpl implements IEqEqmentService
      * @param ids 需要删除的设备信息主键
      * @return 结果
      */
-    @Transactional
     @Override
     public int deleteEqEqmentByIds(Long[] ids)
     {
-        eqEqmentMapper.deleteEqClassByIds(ids);
         return eqEqmentMapper.deleteEqEqmentByIds(ids);
     }
 
@@ -97,35 +88,9 @@ public class EqEqmentServiceImpl implements IEqEqmentService
      * @param id 设备信息主键
      * @return 结果
      */
-    @Transactional
     @Override
     public int deleteEqEqmentById(Long id)
     {
-        eqEqmentMapper.deleteEqClassById(id);
         return eqEqmentMapper.deleteEqEqmentById(id);
-    }
-
-    /**
-     * 新增教室信息信息
-     * 
-     * @param eqEqment 设备信息对象
-     */
-    public void insertEqClass(EqEqment eqEqment)
-    {
-        List<EqClass> eqClassList = eqEqment.getEqClassList();
-        Long id = eqEqment.getId();
-        if (StringUtils.isNotNull(eqClassList))
-        {
-            List<EqClass> list = new ArrayList<EqClass>();
-            for (EqClass eqClass : eqClassList)
-            {
-                eqClass.setId(id);
-                list.add(eqClass);
-            }
-            if (list.size() > 0)
-            {
-                eqEqmentMapper.batchEqClass(list);
-            }
-        }
     }
 }

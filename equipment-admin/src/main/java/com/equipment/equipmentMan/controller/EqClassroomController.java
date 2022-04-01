@@ -25,7 +25,7 @@ import com.equipment.common.core.page.TableDataInfo;
  * 教室信息Controller
  * 
  * @author cdy
- * @date 2022-03-20
+ * @date 2022-03-27
  */
 @RestController
 @RequestMapping("/equipmentMan/classroom")
@@ -99,6 +99,19 @@ public class EqClassroomController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(eqClassroomService.deleteEqClassroomByIds(ids));
+        AjaxResult ajaxResult = new AjaxResult();
+        int num = eqClassroomService.deleteEqClassroomByIds(ids);
+        if(num == -1){
+            ajaxResult.put("msg","教室正在使用，不允许删除！");
+            ajaxResult.put("code",500);
+            return ajaxResult;
+        }else if(num == -2){
+            ajaxResult.put("msg","存在关联设备，不允许删除！");
+            ajaxResult.put("code",500);
+            return ajaxResult;
+        }else{
+            return toAjax(num);
+        }
+
     }
 }

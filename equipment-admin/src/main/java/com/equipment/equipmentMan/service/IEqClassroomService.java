@@ -7,7 +7,7 @@ import com.equipment.equipmentMan.domain.EqClassroom;
  * 教室信息Service接口
  * 
  * @author cdy
- * @date 2022-03-20
+ * @date 2022-03-27
  */
 public interface IEqClassroomService 
 {
