@@ -41,10 +41,34 @@ public class EqBadinfo extends BaseEntity
     @Excel(name = "教室id")
     private Long classroomId;
 
+    /** 设备id */
+    @Excel(name = "教室id")
+    private Long eqmentId;
+
+    public Long getEqmentId() {
+        return eqmentId;
+    }
+
+    public void setEqmentId(Long eqmentId) {
+        this.eqmentId = eqmentId;
+    }
+
     /** 申报日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "申报日期", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "申报日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date badinfoDate;
+
+    /** 教室名称 */
+    @Excel(name = "教室名称")
+    private String className;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public void setId(Long id) 
     {
@@ -119,6 +143,7 @@ public class EqBadinfo extends BaseEntity
             .append("badinfoPeo", getBadinfoPeo())
             .append("badinfoStatus", getBadinfoStatus())
             .append("classroomId", getClassroomId())
+            .append("eqmentId",getEqmentId())
             .append("badinfoDate", getBadinfoDate())
             .append("remark", getRemark())
             .toString();

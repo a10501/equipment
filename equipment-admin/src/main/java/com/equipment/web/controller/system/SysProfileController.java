@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.equipment.common.annotation.Log;
-import com.equipment.common.config.equipmentConfig;
+import com.equipment.common.config.EquipmentConfig;
 import com.equipment.common.constant.UserConstants;
 import com.equipment.common.core.controller.BaseController;
 import com.equipment.common.core.domain.AjaxResult;
@@ -126,7 +126,7 @@ public class SysProfileController extends BaseController
         if (!file.isEmpty())
         {
             LoginUser loginUser = getLoginUser();
-            String avatar = FileUploadUtils.upload(equipmentConfig.getAvatarPath(), file);
+            String avatar = FileUploadUtils.upload(EquipmentConfig.getAvatarPath(), file);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar))
             {
                 AjaxResult ajax = AjaxResult.success();

@@ -3,7 +3,7 @@ package com.equipment.web.controller.system;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.equipment.common.config.equipmentConfig;
+import com.equipment.common.config.EquipmentConfig;
 import com.equipment.common.utils.StringUtils;
 
 /**
@@ -16,7 +16,7 @@ public class SysIndexController
 {
     /** 系统基础配置 */
     @Autowired
-    private equipmentConfig equipmentConfig;
+    private EquipmentConfig equipmentConfig;
 
     /**
      * 访问首页，提示语

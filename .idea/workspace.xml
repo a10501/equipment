@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6a9a0ce3-bb15-4505-b93f-34d5fe8f57fd" name="默认更改列表" comment="20220429">
+      <change beforePath="$PROJECT_DIR$" beforeDir="false" afterPath="$PROJECT_DIR$" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/a10501/equipment" />
+      </set>
+    </option>
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectId" id="26KxI1nOcvkQasrsed2Sk5LgkGG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="android.sdk.path" value="E:/sdk/android-sdk-windows" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/equipment-admin/src" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src" />
+      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\resources" />
+      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\resources\mapper\equipmentMan" />
+      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\java\com\equipment" />
+      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\java\com\equipment\equipmentMan\service\impl" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="equipmentApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="ruoyi-admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.equipment.equipmentApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Hasee\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+    <option name="UPDATE_DEPTH" value="infinity" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6a9a0ce3-bb15-4505-b93f-34d5fe8f57fd" name="默认更改列表" comment="" />
+      <created>1647186015925</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647186015925</updated>
+      <workItem from="1647186033792" duration="41000" />
+      <workItem from="1647217347401" duration="4371000" />
+      <workItem from="1647259891892" duration="2201000" />
+      <workItem from="1647358151357" duration="1388000" />
+      <workItem from="1647390304247" duration="892000" />
+      <workItem from="1647406443146" duration="3001000" />
+      <workItem from="1647476735344" duration="2364000" />
+      <workItem from="1647497391481" duration="104000" />
+      <workItem from="1647509143869" duration="1924000" />
+      <workItem from="1647572151329" duration="5396000" />
+      <workItem from="1647658415103" duration="2722000" />
+      <workItem from="1647680115541" duration="14517000" />
+      <workItem from="1647745662546" duration="10663000" />
+      <workItem from="1647786642238" duration="437000" />
+      <workItem from="1647824654137" duration="3903000" />
+      <workItem from="1647941666550" duration="919000" />
+      <workItem from="1647955210190" duration="8236000" />
+      <workItem from="1647995221958" duration="8766000" />
+      <workItem from="1648026845850" duration="1962000" />
+      <workItem from="1648039587942" duration="4623000" />
+      <workItem from="1648083251114" duration="6689000" />
+      <workItem from="1648173935228" duration="5177000" />
+      <workItem from="1648180028525" duration="958000" />
+      <workItem from="1648188189036" duration="8234000" />
+      <workItem from="1648363312187" duration="14699000" />
+      <workItem from="1648429359408" duration="2349000" />
+      <workItem from="1648438937391" duration="4000" />
+      <workItem from="1648456761168" duration="1997000" />
+      <workItem from="1648515908788" duration="1907000" />
+      <workItem from="1648800815833" duration="5615000" />
+      <workItem from="1648862105000" duration="534000" />
+      <workItem from="1648883070963" duration="9222000" />
+      <workItem from="1649144966084" duration="4197000" />
+      <workItem from="1649205884128" duration="5295000" />
+      <workItem from="1649236490318" duration="3523000" />
+      <workItem from="1649293215524" duration="6819000" />
+      <workItem from="1649317261716" duration="7554000" />
+      <workItem from="1649403631678" duration="4533000" />
+      <workItem from="1649408740120" duration="3934000" />
+      <workItem from="1649487088239" duration="26669000" />
+      <workItem from="1649605434034" duration="1595000" />
+      <workItem from="1649638912048" duration="4659000" />
+      <workItem from="1649667982864" duration="6418000" />
+      <workItem from="1649725229202" duration="11184000" />
+      <workItem from="1649767147575" duration="5181000" />
+      <workItem from="1649812170526" duration="175000" />
+      <workItem from="1649831009696" duration="5901000" />
+      <workItem from="1649854295660" duration="3355000" />
+      <workItem from="1649900336160" duration="560000" />
+      <workItem from="1650173386887" duration="3138000" />
+      <workItem from="1650244036703" duration="132000" />
+      <workItem from="1650352618810" duration="18000" />
+      <workItem from="1650362569705" duration="29000" />
+      <workItem from="1650362695526" duration="323000" />
+      <workItem from="1650371427596" duration="66000" />
+      <workItem from="1650417013028" duration="575000" />
+      <workItem from="1650443239229" duration="6904000" />
+      <workItem from="1650502731349" duration="10943000" />
+      <workItem from="1650591802818" duration="8255000" />
+      <workItem from="1650691686829" duration="5209000" />
+      <workItem from="1650762159250" duration="959000" />
+      <workItem from="1650764989920" duration="2098000" />
+      <workItem from="1650767411364" duration="6064000" />
+      <workItem from="1650780570229" duration="649000" />
+      <workItem from="1650962158608" duration="745000" />
+      <workItem from="1651194665337" duration="2658000" />
+    </task>
+    <task id="LOCAL-00001" summary="20220401">
+      <created>1648808040187</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1648808040187</updated>
+    </task>
+    <task id="LOCAL-00002" summary="20220401">
+      <created>1651197080859</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651197080859</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/Hasee/Desktop/project/equipment/equipment-server" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
+    <MESSAGE value="20220401" />
+    <MESSAGE value="20220429" />
+    <option name="LAST_COMMIT_MESSAGE" value="20220429" />
+  </component>
+</project>

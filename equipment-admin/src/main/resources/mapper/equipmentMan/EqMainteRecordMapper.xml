@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.equipment.equipmentMan.mapper.EqMainteRecordMapper">
+    
+    <resultMap type="EqMainteRecord" id="EqMainteRecordResult">
+        <result property="id"    column="id"    />
+        <result property="recordName"    column="record_name"    />
+        <result property="recordStat"    column="record_stat"    />
+        <result property="recordPeo"    column="record_peo"    />
+        <result property="recordExamineStatus"    column="record_examine_status"    />
+        <result property="recordStatus"    column="record_status"    />
+        <result property="recordDate"    column="record_date"    />
+        <result property="eqmentId"    column="eqment_id"    />
+        <result property="className"    column="class_name"    />
+        <result property="eqmentName"    column="eqment_name"    />
+        <result property="classroomId"    column="classroom_id"    />
+        <result property="nickName"    column="nick_name" />
+        <result property="phonenumber"    column="phonenumber" />
+        <result property="recordApplyDate"    column="record_apply_date"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEqMainteRecordVo">
+        select m.id, m.record_name, m.record_stat, m.record_peo, m.record_examine_status,u.nick_name ,u.phonenumber,
+           m.record_status,m.record_date, m.classroom_id, m.record_apply_date,
+           m.remark,c.class_name,m.eqment_id,e.eqment_name from eq_mainte_record  m
+        LEFT JOIN eq_classroom c on c.id = m.classroom_id
+        LEFT JOIN eq_eqment e on e.id = m.eqment_id
+        left join sys_user u ON  m.record_peo = u.user_id
+    </sql>
+
+    <select id="selectEqMainteRecordList" parameterType="EqMainteRecord" resultMap="EqMainteRecordResult">
+        <include refid="selectEqMainteRecordVo"/>
+        <where>  
+            <if test="eqmentName != null  and eqmentName != ''"> and e.eqment_name like concat('%', #{eqmentName}, '%')</if>
+            <if test="className != null  and className != ''"> and c.class_name like concat('%', #{className}, '%')</if>
+            <if test="nickName != null  and nickName != ''"> and u.nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="recordStatus != null  and recordStatus != ''"> and m.record_status = #{recordStatus}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(m.record_date,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(m.record_date,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+            <if test="recordApplyDate != null "> and m.record_apply_date = #{recordApplyDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectEqMainteRecordById" parameterType="Long" resultMap="EqMainteRecordResult">
+        <include refid="selectEqMainteRecordVo"/>
+        where m.id = #{id}
+    </select>
+        
+    <insert id="insertEqMainteRecord" parameterType="EqMainteRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into eq_mainte_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="recordName != null">record_name,</if>
+            <if test="recordStat != null">record_stat,</if>
+            <if test="recordPeo != null">record_peo,</if>
+            <if test="recordExamineStatus != null">record_examine_status,</if>
+            <if test="recordStatus != null">record_status,</if>
+            <if test="recordDate != null">record_date,</if>
+            <if test="eqmentId != null">eqment_id,</if>
+            <if test="classroomId != null">classroom_id,</if>
+            <if test="recordApplyDate != null">record_apply_date,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="recordName != null">#{recordName},</if>
+            <if test="recordStat != null">#{recordStat},</if>
+            <if test="recordPeo != null">#{recordPeo},</if>
+            <if test="recordExamineStatus != null">#{recordExamineStatus},</if>
+            <if test="recordStatus != null">#{recordStatus},</if>
+            <if test="recordDate != null">#{recordDate},</if>
+            <if test="eqmentId != null">#{eqmentId},</if>
+            <if test="classroomId != null">#{classroomId},</if>
+            <if test="recordApplyDate != null">#{recordApplyDate},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEqMainteRecord" parameterType="EqMainteRecord">
+        update eq_mainte_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="recordName != null">record_name = #{recordName},</if>
+            <if test="recordStat != null">record_stat = #{recordStat},</if>
+            <if test="recordPeo != null">record_peo = #{recordPeo},</if>
+            <if test="recordExamineStatus != null">record_examine_status = #{recordExamineStatus},</if>
+            <if test="recordStatus != null">record_status = #{recordStatus},</if>
+            <if test="recordDate != null">record_date = #{recordDate},</if>
+            <if test="classroomId != null">classroom_id = #{classroomId},</if>
+            <if test="recordApplyDate != null">record_apply_date = #{recordApplyDate},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEqMainteRecordById" parameterType="Long">
+        delete from eq_mainte_record where id = #{id}
+    </delete>
+
+    <delete id="deleteEqMainteRecordByIds" parameterType="String">
+        delete from eq_mainte_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

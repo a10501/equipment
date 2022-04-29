@@ -1,6 +1,13 @@
 package com.equipment.equipmentMan.service.impl;
 
 import java.util.List;
+
+import com.equipment.equipmentMan.domain.EqClassroom;
+import com.equipment.equipmentMan.domain.EqEqment;
+import com.equipment.equipmentMan.domain.EqMainteRecord;
+import com.equipment.equipmentMan.mapper.EqClassroomMapper;
+import com.equipment.equipmentMan.mapper.EqEqmentMapper;
+import com.equipment.equipmentMan.mapper.EqMainteRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.equipment.equipmentMan.mapper.EqBadinfoMapper;
@@ -18,6 +25,16 @@ public class EqBadinfoServiceImpl implements IEqBadinfoService
 {
     @Autowired
     private EqBadinfoMapper eqBadinfoMapper;
+
+    @Autowired
+    private EqEqmentMapper eqEqmentMapper;
+
+    @Autowired
+    private EqClassroomMapper eqClassroomMapper;
+
+    @Autowired
+    private EqMainteRecordMapper eqMainteRecordMapper;
+
 
     /**
      * 查询设备报修信息
@@ -56,7 +73,7 @@ public class EqBadinfoServiceImpl implements IEqBadinfoService
     }
 
     /**
-     * 修改设备报修信息
+     * 审批设备报修信息
      * 
      * @param eqBadinfo 设备报修信息
      * @return 结果
@@ -64,7 +81,53 @@ public class EqBadinfoServiceImpl implements IEqBadinfoService
     @Override
     public int updateEqBadinfo(EqBadinfo eqBadinfo)
     {
+        if (eqBadinfo.getBadinfoStatus().equals("2")) {
+
+            updateEquipmentStatus(eqBadinfo);
+
+            updateClassroomStatus(eqBadinfo);
+
+            addMainteRecord(eqBadinfo);
+
+        }
         return eqBadinfoMapper.updateEqBadinfo(eqBadinfo);
+
+    }
+
+    /**
+     *新增维修信息
+     */
+    public void addMainteRecord(EqBadinfo eqBadinfo){
+        EqMainteRecord eqMainteRecord = new EqMainteRecord();
+        EqEqment eqEqment = eqEqmentMapper.selectEqEqmentById(eqBadinfo.getEqmentId());
+        eqMainteRecord.setRecordName(eqBadinfo.getBadinfoName());
+        eqMainteRecord.setRecordStat(eqBadinfo.getBadinfoStat());
+        eqMainteRecord.setClassroomId(eqBadinfo.getClassroomId());
+        eqMainteRecord.setRecordPeo(eqEqment.getpeopleId());
+        eqMainteRecord.setRecordExamineStatus(eqBadinfo.getBadinfoStatus());
+        eqMainteRecord.setEqmentId(eqEqment.getId());
+        eqMainteRecord.setRecordApplyDate(eqBadinfo.getBadinfoDate());
+        eqMainteRecord.setRemark(eqBadinfo.getRemark());
+        eqMainteRecordMapper.insertEqMainteRecord(eqMainteRecord);
+    }
+
+
+    /**
+     *更改设备状态
+     */
+    public void  updateEquipmentStatus(EqBadinfo eqBadinfo){
+        EqEqment eqEqment = eqEqmentMapper.selectEqEqmentById(eqBadinfo.getEqmentId());
+        eqEqment.setEqmentStatus("1");
+        eqEqmentMapper.updateEqEqment(eqEqment);
+    }
+
+    /**
+     *更改教室状态
+     */
+    public void  updateClassroomStatus(EqBadinfo eqBadinfo){
+        EqClassroom eqClassroom = eqClassroomMapper.selectEqClassroomById(eqBadinfo.getClassroomId());
+        eqClassroom.setStatus("2");
+        eqClassroomMapper.updateEqClassroom(eqClassroom);
     }
 
     /**

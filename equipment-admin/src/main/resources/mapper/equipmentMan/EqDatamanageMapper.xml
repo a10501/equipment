@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.equipment.equipmentMan.mapper.EqDatamanageMapper">
+    
+    <resultMap type="EqDatamanage" id="EqDatamanageResult">
+        <result property="id"    column="id"    />
+        <result property="dataName"    column="data_name"    />
+        <result property="dataUseName"    column="data_use_name"    />
+        <result property="dataStartTime"    column="data_start_time"    />
+        <result property="dataEndTime"    column="data_end_time"    />
+        <result property="dataUseTime"    column="data_use_time"    />
+        <result property="dataEventType"    column="data_event_type"    />
+    </resultMap>
+
+    <sql id="selectEqDatamanageVo">
+        select id, data_name, data_use_name, data_start_time, data_end_time,TIMEDIFF(data_end_time,data_start_time) data_use_time, data_event_type from eq_datamanage
+    </sql>
+
+    <select id="selectEqDatamanageList" parameterType="EqDatamanage" resultMap="EqDatamanageResult">
+        <include refid="selectEqDatamanageVo"/>
+        <where>  
+            <if test="dataName != null  and dataName != ''"> and data_name like concat('%', #{dataName}, '%')</if>
+            <if test="dataUseName != null  and dataUseName != ''"> and data_use_name like concat('%', #{dataUseName}, '%')</if>
+            <if test="dataStartTime != null "> and data_start_time = #{dataStartTime}</if>
+            <if test="dataEndTime != null "> and data_end_time = #{dataEndTime}</if>
+            <if test="dataEventType != null  and dataEventType != ''"> and data_event_type = #{dataEventType}</if>
+        </where>
+    </select>
+    
+    <select id="selectEqDatamanageById" parameterType="Long" resultMap="EqDatamanageResult">
+        <include refid="selectEqDatamanageVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertEqDatamanage" parameterType="EqDatamanage" useGeneratedKeys="true" keyProperty="id">
+        insert into eq_datamanage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataName != null">data_name,</if>
+            <if test="dataUseName != null">data_use_name,</if>
+            <if test="dataStartTime != null">data_start_time,</if>
+            <if test="dataEndTime != null">data_end_time,</if>
+            <if test="dataUseTime != null">data_use_time,</if>
+            <if test="dataEventType != null">data_event_type,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataName != null">#{dataName},</if>
+            <if test="dataUseName != null">#{dataUseName},</if>
+            <if test="dataStartTime != null">#{dataStartTime},</if>
+            <if test="dataEndTime != null">#{dataEndTime},</if>
+            <if test="dataUseTime != null">#{dataUseTime},</if>
+            <if test="dataEventType != null">#{dataEventType},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEqDatamanage" parameterType="EqDatamanage">
+        update eq_datamanage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dataName != null">data_name = #{dataName},</if>
+            <if test="dataUseName != null">data_use_name = #{dataUseName},</if>
+            <if test="dataStartTime != null">data_start_time = #{dataStartTime},</if>
+            <if test="dataEndTime != null">data_end_time = #{dataEndTime},</if>
+            <if test="dataUseTime != null">data_use_time = #{dataUseTime},</if>
+            <if test="dataEventType != null">data_event_type = #{dataEventType},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEqDatamanageById" parameterType="Long">
+        delete from eq_datamanage where id = #{id}
+    </delete>
+
+    <delete id="deleteEqDatamanageByIds" parameterType="String">
+        delete from eq_datamanage where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

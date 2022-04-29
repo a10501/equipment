@@ -3,7 +3,7 @@ package com.equipment.common.utils.ip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
-import com.equipment.common.config.equipmentConfig;
+import com.equipment.common.config.EquipmentConfig;
 import com.equipment.common.constant.Constants;
 import com.equipment.common.utils.StringUtils;
 import com.equipment.common.utils.http.HttpUtils;
@@ -30,7 +30,7 @@ public class AddressUtils
         {
             return "内网IP";
         }
-        if (equipmentConfig.isAddressEnabled())
+        if (EquipmentConfig.isAddressEnabled())
         {
             try
             {

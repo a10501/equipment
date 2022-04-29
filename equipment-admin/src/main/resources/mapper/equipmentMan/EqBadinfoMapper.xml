@@ -11,27 +11,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="badinfoPeo"    column="badinfo_peo"    />
         <result property="badinfoStatus"    column="badinfo_status"    />
         <result property="classroomId"    column="classroom_id"    />
+        <result property="eqmentId"    column="eqment_id"    />
         <result property="badinfoDate"    column="badinfo_date"    />
+        <result property="className"    column="class_name" />
         <result property="remark"    column="remark"    />
     </resultMap>
 
+    <resultMap type="EqClassroom" id="EqClassroomResult">
+        <result property="id"    column="id"    />
+        <result property="className"    column="class_name"    />
+        <result property="status"    column="status"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
     <sql id="selectEqBadinfoVo">
-        select id, badinfo_name, badinfo_stat, badinfo_peo, badinfo_status, classroom_id, badinfo_date, remark from eq_badinfo
+        select eb.id, eb.badinfo_name, eb.badinfo_stat, eb.badinfo_peo, eb.badinfo_status, eb.classroom_id, eb.badinfo_date, eb.remark,c.class_name,eb.eqment_id from eq_badinfo eb
+            left join eq_classroom c on  eb.classroom_id = c.id
     </sql>
 
     <select id="selectEqBadinfoList" parameterType="EqBadinfo" resultMap="EqBadinfoResult">
         <include refid="selectEqBadinfoVo"/>
         <where>  
             <if test="badinfoName != null  and badinfoName != ''"> and badinfo_name like concat('%', #{badinfoName}, '%')</if>
-            <if test="badinfoPeo != null  and badinfoPeo != ''"> and badinfo_peo = #{badinfoPeo}</if>
+            <if test="className != null  and className != ''"> and class_name like concat('%', #{className}, '%')</if>
+            <if test="badinfoPeo != null  and badinfoPeo != ''"> and badinfo_peo like concat('%', #{badinfoPeo}, '%')</if>
             <if test="badinfoStatus != null  and badinfoStatus != ''"> and badinfo_status = #{badinfoStatus}</if>
-            <if test="badinfoDate != null "> and badinfo_date = #{badinfoDate}</if>
+            <if test="badinfoDate != null "> and badinfo_date = date_format(#{badinfoDate},'%y%m%d')</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(badinfo_date,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(badinfo_date,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
         </where>
     </select>
     
     <select id="selectEqBadinfoById" parameterType="Long" resultMap="EqBadinfoResult">
         <include refid="selectEqBadinfoVo"/>
-        where id = #{id}
+        where eb.id = #{id}
     </select>
         
     <insert id="insertEqBadinfo" parameterType="EqBadinfo" useGeneratedKeys="true" keyProperty="id">
@@ -41,18 +61,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="badinfoStat != null and badinfoStat != ''">badinfo_stat,</if>
             <if test="badinfoPeo != null">badinfo_peo,</if>
             <if test="badinfoStatus != null">badinfo_status,</if>
+            <if test="eqmentId != null">eqment_id,</if>
             <if test="classroomId != null">classroom_id,</if>
-            <if test="badinfoDate != null">badinfo_date,</if>
             <if test="remark != null">remark,</if>
+            badinfo_date
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="badinfoName != null and badinfoName != ''">#{badinfoName},</if>
             <if test="badinfoStat != null and badinfoStat != ''">#{badinfoStat},</if>
             <if test="badinfoPeo != null">#{badinfoPeo},</if>
             <if test="badinfoStatus != null">#{badinfoStatus},</if>
+            <if test="eqmentId != null">#{eqmentId},</if>
             <if test="classroomId != null">#{classroomId},</if>
-            <if test="badinfoDate != null">#{badinfoDate},</if>
             <if test="remark != null">#{remark},</if>
+            sysdate()
          </trim>
     </insert>
 
@@ -63,8 +85,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="badinfoStat != null and badinfoStat != ''">badinfo_stat = #{badinfoStat},</if>
             <if test="badinfoPeo != null">badinfo_peo = #{badinfoPeo},</if>
             <if test="badinfoStatus != null">badinfo_status = #{badinfoStatus},</if>
+            <if test="eqmentId != null">eqment_id = #{eqmentId},</if>
             <if test="classroomId != null">classroom_id = #{classroomId},</if>
-            <if test="badinfoDate != null">badinfo_date = #{badinfoDate},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>
         where id = #{id}

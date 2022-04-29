@@ -80,10 +80,15 @@ public class EqEqmentController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody EqEqment eqEqment)
     {
-        LoginUser loginUser = getLoginUser();
-        SysUser user = loginUser.getUser();
-        eqEqment.setResponsiblePeo(user.getUserName());
-        return toAjax(eqEqmentService.insertEqEqment(eqEqment));
+        AjaxResult ajaxResult = new AjaxResult();
+        int num = eqEqmentService.insertEqEqment(eqEqment);
+        if(num == -1){
+            ajaxResult.put("msg","已有此设备类型，请勿重复添加！");
+            ajaxResult.put("code",500);
+            return ajaxResult;
+        }else{
+            return toAjax(num);
+        }
     }
 
     /**
@@ -105,6 +110,14 @@ public class EqEqmentController extends BaseController
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(eqEqmentService.deleteEqEqmentByIds(ids));
+        AjaxResult ajaxResult = new AjaxResult();
+        int num = eqEqmentService.deleteEqEqmentByIds(ids);
+        if(num == -1){
+            ajaxResult.put("msg","非报废设备，不允许删除！");
+            ajaxResult.put("code",500);
+            return ajaxResult;
+        }else{
+            return toAjax(num);
+        }
     }
 }

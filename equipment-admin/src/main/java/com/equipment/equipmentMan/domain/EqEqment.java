@@ -3,6 +3,7 @@ package com.equipment.equipmentMan.domain;
 import java.util.Date;
 
 import com.equipment.common.annotation.Excels;
+import com.equipment.common.core.domain.entity.SysUser;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -38,21 +39,52 @@ public class EqEqment extends BaseEntity
     @Excel(name = "设备类型")
     private String eqmentType;
 
-    public String getResponsiblePeo() {
-        return responsiblePeo;
+    public Long getpeopleId() {
+        return peopleId;
     }
 
-    public void setResponsiblePeo(String responsible_peo) {
-        this.responsiblePeo = responsible_peo;
+    public void setpeopleId(Long peopleId) {
+        this.peopleId = peopleId;
     }
 
-    /** 负责人 */
-    @Excel(name = "负责人")
-    private String responsiblePeo;
+    /** 负责人id */
+    @Excel(name = "负责人id")
+    private Long peopleId;
 
     /** 教室id */
     @Excel(name = "教室id")
     private Long classroomId;
+
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setphonenumber(String peoplePhone) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getnickName() {
+        return nickName;
+    }
+
+    public void setnickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    /** 负责人姓名 */
+    @Excel(name = "负责人姓名")
+    private String nickName;
+
+
+
+    /** 负责人电话 */
+    @Excel(name = "负责人电话")
+    private String phonenumber;
+
+    /** 教室名称 */
+    @Excel(name = "教室名称")
+    private String className;
 
     public String getClassName() {
         return className;
@@ -62,17 +94,6 @@ public class EqEqment extends BaseEntity
         this.className = className;
     }
 
-    /** 教室名称 */
-    @Excel(name = "教室名称")
-    private String className;
-
-//    public EqClassroom getClassroom() {
-//        return classroom;
-//    }
-//
-//    public void setClassroom(EqClassroom classroom) {
-//        this.classroom = classroom;
-//    }
 
     public EqClassroom getClassroom() {
         return classroom;
@@ -94,6 +115,28 @@ public class EqEqment extends BaseEntity
             @Excel(name = "教室状态", targetAttr = "status", type = Excel.Type.EXPORT)
     })
     private EqClassroom classroom;
+
+    public SysUser getSysUser() {
+        return sysUser;
+    }
+
+    public void setSysUser(SysUser sysUser) {
+        this.sysUser = sysUser;
+    }
+
+    /**
+     * 用户对象
+     */
+//    @Excels({
+//            @Excel(name = "教室名称", targetAttr = "className", type = Excel.Type.EXPORT)
+//    })
+//    private EqClassroom classroom;
+    @Excels({
+            @Excel(name = "用户名称", targetAttr = "nickName", type = Excel.Type.EXPORT),
+            @Excel(name = "手机号码", targetAttr = "phonenumber", type = Excel.Type.EXPORT)
+    })
+    private SysUser sysUser;
+
 
     /** 出厂日期 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -191,7 +234,10 @@ public class EqEqment extends BaseEntity
             .append("buyDate", getBuyDate())
             .append("remark", getRemark())
             .append("classroom", getClassroom())
-            .append("responsiblePeo",getResponsiblePeo())
+            .append("peopleId",getpeopleId())
+            .append("nickName",getnickName())
+            .append("phonenumber",getPhonenumber())
+            .append("SysUser",getSysUser())
             .toString();
     }
 }

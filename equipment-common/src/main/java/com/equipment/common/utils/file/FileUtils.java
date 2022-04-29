@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import com.equipment.common.config.equipmentConfig;
+import com.equipment.common.config.EquipmentConfig;
 import com.equipment.common.utils.DateUtils;
 import com.equipment.common.utils.StringUtils;
 import com.equipment.common.utils.uuid.IdUtils;
@@ -72,7 +72,7 @@ public class FileUtils
      */
     public static String writeImportBytes(byte[] data) throws IOException
     {
-        return writeBytes(data, equipmentConfig.getImportPath());
+        return writeBytes(data, EquipmentConfig.getImportPath());
     }
 
     /**

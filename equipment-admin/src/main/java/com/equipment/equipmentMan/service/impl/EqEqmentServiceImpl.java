@@ -1,9 +1,12 @@
 package com.equipment.equipmentMan.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.equipment.common.core.domain.entity.SysUser;
-import com.equipment.common.core.domain.model.LoginUser;
+import com.equipment.common.utils.StringUtils;
+import com.equipment.equipmentMan.domain.EqClassroom;
+import com.equipment.equipmentMan.domain.EqEqmentClass;
+import com.equipment.equipmentMan.mapper.EqEqmentClassMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.equipment.equipmentMan.mapper.EqEqmentMapper;
@@ -21,6 +24,8 @@ public class EqEqmentServiceImpl implements IEqEqmentService
 {
     @Autowired
     private EqEqmentMapper eqEqmentMapper;
+    @Autowired
+    private EqEqmentClassMapper eqEqmentClassMapper;
 
     /**
      * 查询设备信息
@@ -46,6 +51,29 @@ public class EqEqmentServiceImpl implements IEqEqmentService
         return eqEqmentMapper.selectEqEqmentList(eqEqment);
     }
 
+
+    /**
+     * 新增教室设备关联信息
+     *
+     * @param eqEqment 设备对象
+     */
+    public void insertEqEqmentClass(EqEqment eqEqment)
+    {
+        Long eqEqmentId = eqEqment.getId();
+        if (StringUtils.isNotNull(eqEqmentId))
+        {
+            // 新增教室与设备关联
+            EqEqmentClass eqEqmentClass = new EqEqmentClass();
+            eqEqmentClass.setEqmentId(eqEqmentId);
+            eqEqmentClass.setClassId(eqEqment.getClassroomId());
+            if (eqEqmentId.toString().length() > 0)
+            {
+                eqEqmentClassMapper.insertEqEqmentClass(eqEqmentClass);
+            }
+        }
+    }
+
+
     /**
      * 新增设备信息
      * 
@@ -55,7 +83,17 @@ public class EqEqmentServiceImpl implements IEqEqmentService
     @Override
     public int insertEqEqment(EqEqment eqEqment)
     {
-        return eqEqmentMapper.insertEqEqment(eqEqment);
+        EqEqment eqEqment1 = new EqEqment();
+        eqEqment1.setClassroomId(eqEqment.getClassroomId());
+        eqEqment1.setEqmentType(eqEqment.getEqmentType());
+        if(eqEqmentMapper.selectEqEqmentList(eqEqment1).size() > 0){
+            return -1;
+        }
+        int row = eqEqmentMapper.insertEqEqment(eqEqment);
+        insertEqEqmentClass(eqEqment);
+
+
+        return row;
     }
 
     /**
@@ -67,6 +105,11 @@ public class EqEqmentServiceImpl implements IEqEqmentService
     @Override
     public int updateEqEqment(EqEqment eqEqment)
     {
+        Long eqmentId = eqEqment.getId();
+        //删除教室设备关联表信息
+        eqEqmentClassMapper.deleteEqEqmentClassByEqmentId(eqmentId);
+        //新增教室设备关联表信息
+        insertEqEqmentClass(eqEqment);
         return eqEqmentMapper.updateEqEqment(eqEqment);
     }
 
@@ -79,6 +122,13 @@ public class EqEqmentServiceImpl implements IEqEqmentService
     @Override
     public int deleteEqEqmentByIds(Long[] ids)
     {
+        EqEqment eqEqment = new EqEqment();
+        for(int i = 0; i < ids.length; i++){
+            if(!eqEqmentMapper.selectEqEqmentById(ids[i]).getEqmentStatus().equals("2")){
+                return -1;
+            }
+        }
+        eqEqmentClassMapper.deleteEqEqmentClassByEqmentIds(ids);
         return eqEqmentMapper.deleteEqEqmentByIds(ids);
     }
 
@@ -91,6 +141,7 @@ public class EqEqmentServiceImpl implements IEqEqmentService
     @Override
     public int deleteEqEqmentById(Long id)
     {
+        eqEqmentClassMapper.deleteEqEqmentClassByEqmentId(id);
         return eqEqmentMapper.deleteEqEqmentById(id);
     }
 }

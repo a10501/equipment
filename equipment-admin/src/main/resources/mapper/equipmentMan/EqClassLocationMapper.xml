@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.equipment.equipmentMan.mapper.EqClassLocationMapper">
+    <resultMap type="EqClassLocation" id="EqClassLocationResult">
+        <result property="id"    column="id"    />
+        <result property="location"    column="location"    />
+        <result property="locationClass"    column="location_class"    />
+        <result property="eqNumber"    column="eq_number"    />
+        <result property="useDownload"    column="use_download"    />
+        <result property="personCharg"    column="person_charg"    />
+        <result property="personPhone"    column="person_phone"    />
+    </resultMap>
+
+    <sql id="selectEqClassLocationVo">
+        select id, location, location_class, eq_number, use_download, person_charg, person_phone from eq_class_location
+    </sql>
+
+    <select id="selectEqClassLocationList" parameterType="EqClassLocation" resultMap="EqClassLocationResult">
+        <include refid="selectEqClassLocationVo"/>
+        <where>  
+            <if test="location != null  and location != ''"> and location like concat('%', #{location}, '%')</if>
+            <if test="locationClass != null  and locationClass != ''"> and location_class = #{locationClass}</if>
+            <if test="personCharg != null  and personCharg != ''"> and person_charg = #{personCharg}</if>
+        </where>
+    </select>
+    
+    <select id="selectEqClassLocationById" parameterType="Long" resultMap="EqClassLocationResult">
+        <include refid="selectEqClassLocationVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectEqClassLocationByLocation" parameterType="String" resultMap="EqClassLocationResult">
+        <include refid="selectEqClassLocationVo"/>
+        where location = #{location}
+    </select>
+        
+    <insert id="insertEqClassLocation" parameterType="EqClassLocation" useGeneratedKeys="true" keyProperty="id">
+        insert into eq_class_location
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="location != null">location,</if>
+            <if test="locationClass != null">location_class,</if>
+            <if test="eqNumber != null">eq_number,</if>
+            <if test="useDownload != null">use_download,</if>
+            <if test="personCharg != null">person_charg,</if>
+            <if test="personPhone != null">person_phone,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="location != null">#{location},</if>
+            <if test="locationClass != null">#{locationClass},</if>
+            <if test="eqNumber != null">#{eqNumber},</if>
+            <if test="useDownload != null">#{useDownload},</if>
+            <if test="personCharg != null">#{personCharg},</if>
+            <if test="personPhone != null">#{personPhone},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEqClassLocation" parameterType="EqClassLocation">
+        update eq_class_location
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="location != null">location = #{location},</if>
+            <if test="locationClass != null">location_class = #{locationClass},</if>
+            <if test="eqNumber != null">eq_number = #{eqNumber},</if>
+            <if test="useDownload != null">use_download = #{useDownload},</if>
+            <if test="personCharg != null">person_charg = #{personCharg},</if>
+            <if test="personPhone != null">person_phone = #{personPhone},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEqClassLocationById" parameterType="Long">
+        delete from eq_class_location where id = #{id}
+    </delete>
+
+    <delete id="deleteEqClassLocationByIds" parameterType="String">
+        delete from eq_class_location where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

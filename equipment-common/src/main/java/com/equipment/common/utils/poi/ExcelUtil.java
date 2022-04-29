@@ -67,7 +67,7 @@ import com.equipment.common.annotation.Excel;
 import com.equipment.common.annotation.Excel.ColumnType;
 import com.equipment.common.annotation.Excel.Type;
 import com.equipment.common.annotation.Excels;
-import com.equipment.common.config.equipmentConfig;
+import com.equipment.common.config.EquipmentConfig;
 import com.equipment.common.core.domain.AjaxResult;
 import com.equipment.common.core.text.Convert;
 import com.equipment.common.exception.UtilException;
@@ -1097,7 +1097,7 @@ public class ExcelUtil<T>
      */
     public String getAbsoluteFile(String filename)
     {
-        String downloadPath = equipmentConfig.getDownloadPath() + filename;
+        String downloadPath = EquipmentConfig.getDownloadPath() + filename;
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists())
         {

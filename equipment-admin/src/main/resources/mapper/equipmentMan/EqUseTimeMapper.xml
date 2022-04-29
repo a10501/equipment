@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.equipment.equipmentMan.mapper.EqUseTimeMapper">
+
+
+    <resultMap type="EqDatamanage" id="EqDatamanageResult">
+        <result property="id"    column="id"    />
+        <result property="dataName"    column="data_name"    />
+        <result property="dataUseName"    column="data_use_name"/>
+        <result property="dataLocName"    column="data_loc_name"/>
+        <result property="dataUseTime"    column="data_use_time"/>
+        <result property="dataStartTime"    column="data_start_time"    />
+        <result property="dataEndTime"    column="data_end_time"    />
+        <result property="dataLocName"    column="data_loc_name"    />
+        <result property="dataEventType"    column="data_event_type"    />
+    </resultMap>
+
+
+    <sql id="selectEqUseTimevoGroupByEveryOneDataUseName">
+        select id, data_use_name,
+               SEC_TO_TIME( sum( TIMESTAMPDIFF(SECOND,data_start_time,data_end_time) )  ) data_use_time
+        from eq_datamanage where data_event_type = '投影开关机' GROUP BY data_use_name
+    </sql>
+
+
+    <sql id="selectEqUseTimevoGroupByEveryOneDataName">
+        select id, data_name,
+               SEC_TO_TIME( sum( TIMESTAMPDIFF(SECOND,data_start_time,data_end_time) )  ) data_use_time
+        from eq_datamanage
+        where data_event_type = '投影开关机'
+        GROUP BY data_name
+    </sql>
+
+    <sql id="selectEqUseTimevoGroupByLocation">
+        select id, LEFT(data_name,INSTR(data_name,'-')-2) data_loc_name,
+            sum( TIMESTAMPDIFF(SECOND,data_start_time,data_end_time) )  data_use_time
+        from eq_datamanage
+        where data_event_type = '投影开关机'
+        GROUP BY LEFT(data_name,INSTR(data_name,'-')-2)
+    </sql>
+
+
+
+    <!--默认按用户分组计算总时间-->
+    <select id="selectEqUseTimeList" parameterType="EqDatamanage" resultMap="EqDatamanageResult">
+        <include refid="selectEqUseTimevoGroupByEveryOneDataUseName"/>
+
+            <if test="dataUseName != null  and dataUseName != ''"> having data_use_name like concat('%', #{dataUseName}, '%')</if>
+
+    </select>
+
+    <!--按教室分组计算总时间（按教室分组计算）-->
+    <select id="selectEqUDataNameTimeList" parameterType="EqDatamanage" resultMap="EqDatamanageResult">
+        <include refid="selectEqUseTimevoGroupByEveryOneDataName"/>
+
+            <if test="dataName != null  and dataName != ''"> having data_name  like concat('%', #{dataName}, '%')</if>
+    </select>
+
+    <!--按楼栋分组计算总时间（按楼栋分组计算）-->
+    <select id="selectEqUDataLocationList" parameterType="EqDatamanage" resultMap="EqDatamanageResult">
+        <include refid="selectEqUseTimevoGroupByLocation"/>
+
+        <if test="dataLocName != null  and dataLocName != ''"> having data_loc_name  like concat('%', #{dataLocName}, '%')</if>
+    </select>
+
+</mapper>

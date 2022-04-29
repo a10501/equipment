@@ -14,8 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="proDate"    column="pro_date"    />
         <result property="buyDate"    column="buy_date"    />
         <result property="remark"    column="remark"    />
-        <result property="responsiblePeo"    column="responsible_peo"    />
+        <result property="peopleId"    column="people_id"    />
         <result property="className"    column="class_name" />
+        <result property="nickName"    column="nick_name" />
+        <result property="phonenumber"    column="phonenumber" />
+        <association property="sysUser"    column="user_id" javaType="SysUser" resultMap="SysUserResult" />
     </resultMap>
 
     <resultMap type="EqClassroom" id="EqClassroomResult">
@@ -26,6 +29,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
         <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+
+    <resultMap type="SysUser" id="SysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="deptId"       column="dept_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="email"        column="email"        />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="password"     column="password"     />
+        <result property="status"       column="status"       />
+        <result property="delFlag"      column="del_flag"     />
+        <result property="loginIp"      column="login_ip"     />
+        <result property="loginDate"    column="login_date"   />
+        <result property="createBy"     column="create_by"    />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateBy"     column="update_by"    />
+        <result property="updateTime"   column="update_time"  />
+        <result property="remark"       column="remark"       />
     </resultMap>
 
 <!--    <sql id="selectEqEqmentVo">-->
@@ -49,20 +74,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!--    </sql>-->
 
     <select id="selectEqEqmentList" parameterType="EqEqment" resultMap="EqEqmentResult">
-        select e.id, e.eqment_name, e.eqment_number, e.eqment_status, e.eqment_type, e.classroom_id,e.pro_date, e.buy_date, e.remark, c.class_name as class_name,e.responsible_peo
+        select e.id, e.eqment_name, e.eqment_number, e.eqment_status, e.eqment_type, e.classroom_id,e.pro_date, e.buy_date, e.remark, c.class_name as class_name,e.people_id,
+               u.nick_name ,u.phonenumber
         from eq_eqment e
         left join eq_classroom c on  e.classroom_id = c.id
+        left join sys_user u ON  e.people_id = u.user_id
         <where>  
             <if test="eqmentName != null  and eqmentName != ''"> and eqment_name like concat('%', #{eqmentName}, '%')</if>
             <if test="eqmentStatus != null  and eqmentStatus != ''"> and eqment_status = #{eqmentStatus}</if>
             <if test="eqmentType != null  and eqmentType != ''"> and eqment_type = #{eqmentType}</if>
+            <if test="className != null  and className != ''"> and c.class_name like concat('%', #{className}, '%')</if>
         </where>
     </select>
     
     <select id="selectEqEqmentById" parameterType="Long" resultMap="EqEqmentResult">
-        select e.id, e.eqment_name, e.eqment_number, e.eqment_status, e.eqment_type, e.classroom_id,e.pro_date, e.buy_date, e.remark, c.class_name,e.responsible_peo
+        select e.id, e.eqment_name, e.eqment_number, e.eqment_status, e.eqment_type, e.classroom_id,e.pro_date, e.buy_date, e.remark, c.class_name,e.people_id,u.nick_name,u.phonenumber
         from eq_eqment e
         left join eq_classroom c on  e.classroom_id = c.id
+        left join sys_user u ON u.user_id = e.people_id
         where e.id = #{id}
     </select>
         
@@ -74,7 +103,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="eqmentStatus != null">eqment_status,</if>
             <if test="eqmentType != null">eqment_type,</if>
             <if test="classroomId != null">classroom_id,</if>
-            <if test="responsiblePeo != null">responsible_peo,</if>
+            <if test="peopleId != null">people_id,</if>
             <if test="proDate != null">pro_date,</if>
             <if test="buyDate != null">buy_date,</if>
             <if test="remark != null">remark,</if>
@@ -85,7 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="eqmentStatus != null">#{eqmentStatus},</if>
             <if test="eqmentType != null">#{eqmentType},</if>
             <if test="classroomId != null">#{classroomId},</if>
-            <if test="responsiblePeo != null">{#responsible_peo},</if>
+            <if test="peopleId != null">#{peopleId},</if>
             <if test="proDate != null">#{proDate},</if>
             <if test="buyDate != null">#{buyDate},</if>
             <if test="remark != null">#{remark},</if>
@@ -100,7 +129,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="eqmentStatus != null">eqment_status = #{eqmentStatus},</if>
             <if test="eqmentType != null">eqment_type = #{eqmentType},</if>
             <if test="classroomId != null">classroom_id = #{classroomId},</if>
-            <if test="responsiblePeo != null">responsible_peo = #{#esponsible_peo},</if>
+            <if test="peopleId != null">people_id = #{peopleId},</if>
             <if test="proDate != null">pro_date = #{proDate},</if>
             <if test="buyDate != null">buy_date = #{buyDate},</if>
             <if test="remark != null">remark = #{remark},</if>

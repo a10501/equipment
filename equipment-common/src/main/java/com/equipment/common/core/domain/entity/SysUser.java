@@ -94,6 +94,18 @@ public class SysUser extends BaseEntity
     /** 角色ID */
     private Long roleId;
 
+    public String getPostName() {
+        return postName;
+    }
+
+    public void setPostName(String postName) {
+        this.postName = postName;
+    }
+
+    /**部门名称 */
+    private String postName;
+
+
     public SysUser()
     {
 
