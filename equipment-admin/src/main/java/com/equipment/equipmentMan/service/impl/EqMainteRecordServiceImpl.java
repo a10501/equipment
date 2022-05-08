@@ -77,7 +77,7 @@ public class EqMainteRecordServiceImpl implements IEqMainteRecordService
     @Override
     public int updateEqMainteRecord(EqMainteRecord eqMainteRecord)
     {
-        if(eqMainteRecord.getRecordStatus().equals("3")){
+        if(eqMainteRecord.getRecordStatus().equals("3") || eqMainteRecord.getRecordStatus().equals("4")){
             updateEquipmentStatus(eqMainteRecord);
             updateClassroomStatus(eqMainteRecord);
         }

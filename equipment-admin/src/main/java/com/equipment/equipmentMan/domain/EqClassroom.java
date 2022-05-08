@@ -26,7 +26,19 @@ public class EqClassroom extends BaseEntity
     @Excel(name = "教室状态", readConverterExp = "0=未使用,1=使用中")
     private String status;
 
-    public void setId(Long id) 
+    /** 状态（0使用中 1停用） */
+    @Excel(name = "状态", readConverterExp = "0=使用中,1=停用,2=报废")
+    private String eqmentStatus;
+
+    public String getEqmentStatus() {
+        return eqmentStatus;
+    }
+
+    public void setEqmentStatus(String eqmentStatus) {
+        this.eqmentStatus = eqmentStatus;
+    }
+
+    public void setId(Long id)
     {
         this.id = id;
     }

@@ -21,12 +21,64 @@ public class EqMainteRecord extends BaseEntity
     /** 维修id */
     private Long id;
 
-    /** 设备名称 */
+    /** 名称 */
     private String recordName;
+
+
+    /** 设备名称 */
+    @Excel(name = "设备名称")
+    private String eqmentName;
+
+    /** 教室名称 */
+    @Excel(name = "教室名称")
+    private String className;
 
     /** 故障说明 */
     @Excel(name = "故障说明")
     private String recordStat;
+
+    /** 负责人姓名 */
+    @Excel(name = "负责人姓名")
+    private String nickName;
+
+    /** 负责人电话 */
+    @Excel(name = "负责人电话")
+    private String phonenumber;
+
+    /** 负责人id */
+    private Long recordPeo;
+
+    /** 申报日期 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "申报日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    private Date recordApplyDate;
+
+    /** 审核状态（0待审核 1处理中 2通过） */
+    @Excel(name = "审核状态", readConverterExp = "0=待审核,1=处理中,2=通过")
+    private String recordExamineStatus;
+
+    /** 维修状态（0待维修 1处理中 2已完成 3拒绝） */
+    @Excel(name = "维修状态", readConverterExp = "0=待维修,1=处理中,2=已完成,3=拒绝")
+    private String recordStatus;
+
+    /** 维修日期 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "维修日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    private Date recordDate;
+
+    /** 教室id */
+    private Long classroomId;
+
+    /** 设备id */
+    private Long eqmentId;
+
+    public Long getEqmentId() {
+        return eqmentId;
+    }
+
+    public void setEqmentId(Long eqmentId) {
+        this.eqmentId = eqmentId;
+    }
 
     public Long getRecordPeo() {
         return recordPeo;
@@ -35,11 +87,6 @@ public class EqMainteRecord extends BaseEntity
     public void setRecordPeo(Long recordPeo) {
         this.recordPeo = recordPeo;
     }
-
-    /** 负责人姓名 */
-    @Excel(name = "负责人姓名")
-    private String nickName;
-
     public String getnickName() {
         return nickName;
     }
@@ -56,49 +103,6 @@ public class EqMainteRecord extends BaseEntity
         this.phonenumber = phonenumber;
     }
 
-    /** 负责人电话 */
-    @Excel(name = "负责人电话")
-    private String phonenumber;
-
-    /** 负责人id */
-    @Excel(name = "负责人id")
-    private Long recordPeo;
-
-    /** 审核状态（0待审核 1处理中 2通过） */
-    @Excel(name = "审核状态", readConverterExp = "0=待审核,1=处理中,2=通过")
-    private String recordExamineStatus;
-
-    /** 维修状态（0待维修 1处理中 2已完成 3拒绝） */
-    @Excel(name = "维修状态", readConverterExp = "0=待维修,1=处理中,2=已完成,3=拒绝")
-    private String recordStatus;
-
-    /** 维修日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Excel(name = "维修日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date recordDate;
-
-    /** 教室id */
-    @Excel(name = "教室id")
-    private Long classroomId;
-
-    /** 设备id */
-    @Excel(name = "设备id")
-    private Long eqmentId;
-
-    public Long getEqmentId() {
-        return eqmentId;
-    }
-
-    public void setEqmentId(Long eqmentId) {
-        this.eqmentId = eqmentId;
-    }
-
-    /** 教室名称 */
-    private String className;
-
-    /** 设备名称 */
-    private String eqmentName;
-
     public String getEqmentName() {
         return eqmentName;
     }
@@ -114,12 +118,6 @@ public class EqMainteRecord extends BaseEntity
     public void setClassName(String className) {
         this.className = className;
     }
-
-    /** 申报日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Excel(name = "申报日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date recordApplyDate;
-
 
     public void setId(Long id) 
     {

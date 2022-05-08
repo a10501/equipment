@@ -84,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="eqmentStatus != null  and eqmentStatus != ''"> and eqment_status = #{eqmentStatus}</if>
             <if test="eqmentType != null  and eqmentType != ''"> and eqment_type = #{eqmentType}</if>
             <if test="className != null  and className != ''"> and c.class_name like concat('%', #{className}, '%')</if>
+            <if test="classroomId != null  and classroomId != ''"> and e.classroom_id like concat('%', #{classroomId}, '%')</if>
         </where>
     </select>
     

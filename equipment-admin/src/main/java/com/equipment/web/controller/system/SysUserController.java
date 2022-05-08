@@ -64,7 +64,7 @@ public class SysUserController extends BaseController
     /**
      * 获取用户列表
      */
-    @PreAuthorize("@ss.hasPermi('system:user:list')")
+    @PreAuthorize("@ss.hasPermi('system:user:recordList')")
     @GetMapping("/recordList")
     public TableDataInfo recordList(SysUser user)
     {

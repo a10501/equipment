@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.equipment.equipmentMan.mapper.EqBookingMapper">
+    
+    <resultMap type="EqBooking" id="EqBookingResult">
+        <result property="id"    column="id"    />
+        <result property="bookingName"    column="booking_name"    />
+        <result property="bookingPeo"    column="booking_peo"    />
+        <result property="bookingStatus"    column="booking_status"    />
+        <result property="bookingDate"    column="booking_date"    />
+        <result property="classroomId"    column="classroom_id"    />
+        <result property="classTime"    column="class_time"    />
+        <result property="bookingApplyDate"    column="booking_apply_date" />
+        <result property="className"    column="class_name" />
+        <result property="nickName"    column="nick_name" />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectEqBookingVo">
+        select eb.id, eb.booking_name, eb.booking_peo, eb.booking_status,
+               eb.booking_date,eb.class_time, eb.classroom_id, eb.booking_apply_date,
+               eb.remark,u.nick_name,ec.class_name
+        from eq_booking eb
+         LEFT JOIN sys_user u on u.user_id = eb.booking_peo
+         LEFT JOIN eq_classroom ec on ec.id = eb.classroom_id
+    </sql>
+
+    <sql id="selectEqBookingMyself">
+        select eb.id, eb.booking_name, eb.booking_peo, eb.booking_status,
+               eb.booking_date,eb.class_time,eb.classroom_id, eb.booking_apply_date,
+               eb.remark,u.nick_name,ec.class_name
+        from eq_booking eb
+                 LEFT JOIN sys_user u on u.user_id = eb.booking_peo
+                 LEFT JOIN eq_classroom ec on ec.id = eb.classroom_id
+    </sql>
+
+    <select id="selectEqBookingList" parameterType="EqBooking" resultMap="EqBookingResult">
+        <include refid="selectEqBookingVo"/>
+        <where>  
+            <if test="nickName != null "> and u.nick_name like concat('%', #{nickName}, '%')</if>
+            <if test="bookingStatus != null  and bookingStatus != ''"> and eb.booking_status = #{bookingStatus}</if>
+            <if test="params.beginBookingDate != null and params.beginBookingDate != '' and params.endBookingDate != null and params.endBookingDate != ''"> and  date_format(eb.booking_date,'%y%m%d') between date_format(#{params.beginBookingDate},'%y%m%d') and date_format(#{params.endBookingDate},'%y%m%d')</if>
+            <if test="className != null "> and ec.class_name like concat('%', #{className}, '%')</if>
+            <if test="bookingApplyDate != null "> and date_format(eb.booking_apply_date,'%y%m%d')  = date_format(#{bookingApplyDate},'%y%m%d')</if>
+        </where>
+    </select>
+
+    <select id="selectEqBookingMyself" parameterType="Long" resultMap="EqBookingResult">
+        <include refid="selectEqBookingVo"/>
+        <where>
+            <if test="bookingPeo != null"> and eb.booking_peo = #{bookingPeo}</if>
+            <if test="className != null "> and ec.class_name like concat('%', #{className}, '%')</if>
+            <if test="bookingApplyDate != null "> and date_format(eb.booking_apply_date,'%y%m%d')  = date_format(#{bookingApplyDate},'%y%m%d')</if>
+        </where>
+    </select>
+    
+    <select id="selectEqBookingById" parameterType="Long" resultMap="EqBookingResult">
+        <include refid="selectEqBookingVo"/>
+        where eb.id = #{id}
+    </select>
+        
+    <insert id="insertEqBooking" parameterType="EqBooking" useGeneratedKeys="true" keyProperty="id">
+        insert into eq_booking
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookingName != null">booking_name,</if>
+            <if test="bookingPeo != null">booking_peo,</if>
+            <if test="bookingStatus != null">booking_status,</if>
+            <if test="bookingDate != null">booking_date,</if>
+            <if test="classroomId != null">classroom_id,</if>
+            <if test="classTime != null">class_time,</if>
+            <if test="remark != null">remark,</if>
+            booking_apply_date
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bookingName != null">#{bookingName},</if>
+            <if test="bookingPeo != null">#{bookingPeo},</if>
+            <if test="bookingStatus != null">#{bookingStatus},</if>
+            <if test="bookingDate != null">#{bookingDate},</if>
+            <if test="classroomId != null">#{classroomId},</if>
+            <if test="bookingApplyDate != null">#{bookingApplyDate},</if>
+            <if test="classTime != null">#{classTime},</if>
+            <if test="remark != null">#{remark},</if>
+            sysdate()
+         </trim>
+    </insert>
+
+    <update id="updateEqBooking" parameterType="EqBooking">
+        update eq_booking
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bookingName != null">booking_name = #{bookingName},</if>
+            <if test="bookingPeo != null">booking_peo = #{bookingPeo},</if>
+            <if test="bookingStatus != null">booking_status = #{bookingStatus},</if>
+            <if test="bookingDate != null">booking_date = #{bookingDate},</if>
+            <if test="classroomId != null">classroom_id = #{classroomId},</if>
+            <if test="bookingApplyDate != null">booking_apply_date = #{bookingApplyDate},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEqBookingById" parameterType="Long">
+        delete from eq_booking where id = #{id}
+    </delete>
+
+    <delete id="deleteEqBookingByIds" parameterType="String">
+        delete from eq_booking where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

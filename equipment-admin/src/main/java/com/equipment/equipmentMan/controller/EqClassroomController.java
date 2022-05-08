@@ -77,7 +77,15 @@ public class EqClassroomController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody EqClassroom eqClassroom)
     {
-        return toAjax(eqClassroomService.insertEqClassroom(eqClassroom));
+        AjaxResult ajaxResult = new AjaxResult();
+        int num = eqClassroomService.insertEqClassroom(eqClassroom);
+        if(num == -1){
+            ajaxResult.put("msg","已存在，请勿重复添加！");
+            ajaxResult.put("code",500);
+            return ajaxResult;
+        }else{
+            return toAjax(num);
+        }
     }
 
     /**

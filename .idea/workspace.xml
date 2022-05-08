@@ -55,7 +55,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="E:/sdk/android-sdk-windows" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/equipment-admin/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/equipment-admin/src/main/resources/mapper/equipmentMan" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.17" />
@@ -64,21 +64,23 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src" />
-      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\resources" />
       <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\resources\mapper\equipmentMan" />
       <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\java\com\equipment" />
+      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src" />
+      <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\resources" />
       <recent name="C:\Users\Hasee\Desktop\project\equipment\equipment-server\equipment-admin\src\main\java\com\equipment\equipmentMan\service\impl" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -86,6 +88,8 @@
     <configuration name="equipmentApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="ruoyi-admin" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.equipment.equipmentApplication" />
+      <option name="ENABLE_JMX_AGENT" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -169,7 +173,19 @@
       <workItem from="1650767411364" duration="6064000" />
       <workItem from="1650780570229" duration="649000" />
       <workItem from="1650962158608" duration="745000" />
-      <workItem from="1651194665337" duration="4695000" />
+      <workItem from="1651194665337" duration="5442000" />
+      <workItem from="1651212455522" duration="4128000" />
+      <workItem from="1651487928653" duration="3128000" />
+      <workItem from="1651566359897" duration="11366000" />
+      <workItem from="1651651791777" duration="2221000" />
+      <workItem from="1651714044659" duration="1242000" />
+      <workItem from="1651720291579" duration="3373000" />
+      <workItem from="1651736702561" duration="7881000" />
+      <workItem from="1651755368530" duration="1836000" />
+      <workItem from="1651801639585" duration="9909000" />
+      <workItem from="1651831975221" duration="26000" />
+      <workItem from="1651843217685" duration="5100000" />
+      <workItem from="1651887617718" duration="6404000" />
     </task>
     <task id="LOCAL-00001" summary="20220401">
       <created>1648808040187</created>

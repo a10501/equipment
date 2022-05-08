@@ -32,107 +32,40 @@ public class EqEqment extends BaseEntity
     private String eqmentNumber;
 
     /** 状态（0使用中 1停用） */
-    @Excel(name = "状态", readConverterExp = "0=使用中,1=停用")
+    @Excel(name = "状态", readConverterExp = "0=使用中,1=停用,2=报废")
     private String eqmentStatus;
 
     /** 设备类型 */
-    @Excel(name = "设备类型")
+    @Excel(name = "设备类型",readConverterExp = "1=中控台,2=音箱,3=投影仪,4=幕布,5=其他")
     private String eqmentType;
 
-    public Long getpeopleId() {
-        return peopleId;
-    }
-
-    public void setpeopleId(Long peopleId) {
-        this.peopleId = peopleId;
-    }
 
     /** 负责人id */
-    @Excel(name = "负责人id")
     private Long peopleId;
 
     /** 教室id */
-    @Excel(name = "教室id")
     private Long classroomId;
 
-
-    public String getPhonenumber() {
-        return phonenumber;
-    }
-
-    public void setphonenumber(String peoplePhone) {
-        this.phonenumber = phonenumber;
-    }
-
-    public String getnickName() {
-        return nickName;
-    }
-
-    public void setnickName(String nickName) {
-        this.nickName = nickName;
-    }
-
     /** 负责人姓名 */
-    @Excel(name = "负责人姓名")
     private String nickName;
 
-
-
     /** 负责人电话 */
-    @Excel(name = "负责人电话")
     private String phonenumber;
 
     /** 教室名称 */
     @Excel(name = "教室名称")
     private String className;
 
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-
-    public EqClassroom getClassroom() {
-        return classroom;
-    }
-
-    public void setClassroom(EqClassroom classroom) {
-        this.classroom = classroom;
-    }
-
     /**
      * 教室对象
      */
-//    @Excels({
-//            @Excel(name = "教室名称", targetAttr = "className", type = Excel.Type.EXPORT)
-//    })
-//    private EqClassroom classroom;
-    @Excels({
-            @Excel(name = "教室名称", targetAttr = "className", type = Excel.Type.EXPORT),
-            @Excel(name = "教室状态", targetAttr = "status", type = Excel.Type.EXPORT)
-    })
     private EqClassroom classroom;
-
-    public SysUser getSysUser() {
-        return sysUser;
-    }
-
-    public void setSysUser(SysUser sysUser) {
-        this.sysUser = sysUser;
-    }
 
     /**
      * 用户对象
      */
-//    @Excels({
-//            @Excel(name = "教室名称", targetAttr = "className", type = Excel.Type.EXPORT)
-//    })
-//    private EqClassroom classroom;
     @Excels({
-            @Excel(name = "用户名称", targetAttr = "nickName", type = Excel.Type.EXPORT),
+            @Excel(name = "负责人姓名", targetAttr = "nickName", type = Excel.Type.EXPORT),
             @Excel(name = "手机号码", targetAttr = "phonenumber", type = Excel.Type.EXPORT)
     })
     private SysUser sysUser;
@@ -170,6 +103,13 @@ public class EqEqment extends BaseEntity
     {
         this.eqmentNumber = eqmentNumber;
     }
+    public SysUser getSysUser() {
+        return sysUser;
+    }
+
+    public void setSysUser(SysUser sysUser) {
+        this.sysUser = sysUser;
+    }
 
     public String getEqmentNumber() 
     {
@@ -179,7 +119,37 @@ public class EqEqment extends BaseEntity
     {
         this.eqmentStatus = eqmentStatus;
     }
+    public String getClassName() {
+        return className;
+    }
 
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setphonenumber(String peoplePhone) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getnickName() {
+        return nickName;
+    }
+
+    public void setnickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public EqClassroom getClassroom() {
+        return classroom;
+    }
+
+    public void setClassroom(EqClassroom classroom) {
+        this.classroom = classroom;
+    }
     public String getEqmentStatus() 
     {
         return eqmentStatus;
@@ -221,6 +191,14 @@ public class EqEqment extends BaseEntity
         return buyDate;
     }
 
+
+    public Long getpeopleId() {
+        return peopleId;
+    }
+
+    public void setpeopleId(Long peopleId) {
+        this.peopleId = peopleId;
+    }
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

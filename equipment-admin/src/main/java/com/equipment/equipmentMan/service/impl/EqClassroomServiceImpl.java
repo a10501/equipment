@@ -1,6 +1,8 @@
 package com.equipment.equipmentMan.service.impl;
 
 import java.util.List;
+
+import com.equipment.common.core.domain.entity.SysUser;
 import com.equipment.common.utils.DateUtils;
 import com.equipment.equipmentMan.domain.EqEqment;
 import com.equipment.equipmentMan.service.IEqEqmentService;
@@ -58,6 +60,12 @@ public class EqClassroomServiceImpl implements IEqClassroomService
     @Override
     public int insertEqClassroom(EqClassroom eqClassroom)
     {
+
+        EqClassroom eqClassroom1 = new EqClassroom();
+        eqClassroom1.setClassName(eqClassroom.getClassName());
+
+        if(eqClassroomMapper.selectEqClassroomList(eqClassroom1).size() > 0)
+            return -1;
         eqClassroom.setCreateTime(DateUtils.getNowDate());
         return eqClassroomMapper.insertEqClassroom(eqClassroom);
     }
@@ -71,7 +79,9 @@ public class EqClassroomServiceImpl implements IEqClassroomService
     @Override
     public int updateEqClassroom(EqClassroom eqClassroom)
     {
+        SysUser sysUser = new SysUser();
         eqClassroom.setUpdateTime(DateUtils.getNowDate());
+        eqClassroom.setUpdateBy(sysUser.getNickName());
         return eqClassroomMapper.updateEqClassroom(eqClassroom);
     }
 

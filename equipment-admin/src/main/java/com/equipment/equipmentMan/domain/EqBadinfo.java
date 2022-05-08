@@ -29,21 +29,29 @@ public class EqBadinfo extends BaseEntity
     @Excel(name = "故障说明")
     private String badinfoStat;
 
+    /** 教室名称 */
+    @Excel(name = "教室名称")
+    private String className;
+
     /** 申请人 */
     @Excel(name = "申请人")
     private String badinfoPeo;
 
     /** 审核状态（0待审核 1处理中 2通过） */
-    @Excel(name = "审核状态", readConverterExp = "0=待审核,1=处理中,2=通过")
+    @Excel(name = "审核状态", readConverterExp = "0=待审核,1=处理中,2=通过,3=拒绝")
     private String badinfoStatus;
 
     /** 教室id */
-    @Excel(name = "教室id")
     private Long classroomId;
 
     /** 设备id */
-    @Excel(name = "教室id")
     private Long eqmentId;
+
+    /** 申报日期 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "申报日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    private Date badinfoDate;
+
 
     public Long getEqmentId() {
         return eqmentId;
@@ -52,15 +60,6 @@ public class EqBadinfo extends BaseEntity
     public void setEqmentId(Long eqmentId) {
         this.eqmentId = eqmentId;
     }
-
-    /** 申报日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Excel(name = "申报日期", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date badinfoDate;
-
-    /** 教室名称 */
-    @Excel(name = "教室名称")
-    private String className;
 
     public String getClassName() {
         return className;

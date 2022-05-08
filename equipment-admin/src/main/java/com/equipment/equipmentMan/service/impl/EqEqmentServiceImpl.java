@@ -90,6 +90,7 @@ public class EqEqmentServiceImpl implements IEqEqmentService
             return -1;
         }
         int row = eqEqmentMapper.insertEqEqment(eqEqment);
+        //新增教室设备关联信息
         insertEqEqmentClass(eqEqment);
 
 
