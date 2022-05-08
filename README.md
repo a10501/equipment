@@ -1,10 +1,4 @@
 <h4 align="center">基于SpringBoot+Vue前后端分离的多媒体教室设备管理信息系统</h4>
-<p align="center">
-	<a href="https://gitee.com/y_project/equipment-Vue/stargazers"><img src="https://gitee.com/y_project/equipment-Vue/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/y_project/equipment-Vue"><img src="https://img.shields.io/badge/equipment-v3.8.1-brightgreen.svg"></a>
-	<a href="https://gitee.com/y_project/equipment-Vue/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
-</p>
-
 ## 平台简介
 
 * 前端采用Vue、Element UI。
